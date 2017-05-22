@@ -3,6 +3,7 @@ import AUDIO from '../audio';
 import store from '../store';
 import {previous, next, setProgress, toggleSong} from '../action-creators/player';
 import Player from '../components/Player';
+import {connect} from 'react-redux'
 
 class PlayerContainer extends Component {
 
@@ -53,4 +54,18 @@ class PlayerContainer extends Component {
 
 }
 
+// const mapStateToProps = (state) => {
+//   return {
+//     state.player,
+//   }
+// }
+// const mapDispatchToProps = (dispatch) => {
+//   return {
+//     next: () => dispatch(next()),
+//     prev: () => dispatch(prev()),
+//     toggle: (song, list) => dispatch(toggleSong(song, list)),
+//   }
+// }
+
+// const PlayerContainer = connect(mapStateToProps, mapDispatchToProps)(Player);
 export default PlayerContainer;

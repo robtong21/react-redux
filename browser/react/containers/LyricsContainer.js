@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import store from '../store';
 import Lyrics from '../components/Lyrics';
+import {connect} from 'react-redux';
 
 import {searchLyrics} from '../action-creators/lyrics';
 
@@ -59,5 +60,20 @@ class LyricsContainer extends Component {
 
 }
 
+// const mapStateToProps = (state) => {
+//   return {
+
+//     handleArtistInput: (artist)
+
+//   }
+// }
+
+// const mapDispatchToProps = (dispatch) => {
+//   return {
+//   }
+// }
+
+
+// const LyricsContainer = connect(mapStateToProps, mapDispatchToProps)(Lyrics)
 export default LyricsContainer;
 

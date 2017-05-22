@@ -2,7 +2,7 @@ import React from 'react';
 import {Link} from 'react-router';
 
 export default function Artist (props) {
-
+  console.log('artistprops', props);
   const artist = props.selectedArtist;
   const albums = artist.albums || [];
   const songs = artist.songs || [];
