@@ -9,6 +9,7 @@ export default function Player (props) {
   const toggle = props.toggle;
   const next = props.next;
 
+  console.log('player props', props);
   return (
     <footer>
       <div style={!currentSong.id ? {display: 'none'} : null}>
@@ -31,4 +32,4 @@ export default function Player (props) {
       </div>
     </footer>
   );
-};
+}

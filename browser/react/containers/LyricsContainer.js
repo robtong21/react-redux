@@ -11,10 +11,10 @@ class LyricsContainer extends Component {
 
     super();
 
-    this.state = Object.assign({
+    this.state = {
       artistQuery: '',
       songQuery: ''
-    }, store.getState());
+    };
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleArtistInput = this.handleArtistInput.bind(this);
@@ -22,11 +22,11 @@ class LyricsContainer extends Component {
 
   }
 
-  componentDidMount() {
-    this.unsubscribe = store.subscribe(() => {
-      this.setState(store.getState());
-    });
-  }
+  // componentDidMount() {
+  //   this.unsubscribe = store.subscribe(() => {
+  //     this.setState(store.getState());
+  //   });
+  // }
 
   handleArtistInput(artist) {
     this.setState({ artistQuery: artist });
@@ -43,37 +43,36 @@ class LyricsContainer extends Component {
     }
   }
 
-  componentWillUnmount() {
-    this.unsubscribe();
-  }
+  // componentWillUnmount() {
+  //   this.unsubscribe();
+  // }
 
   render() {
     return (
       <Lyrics
         {...this.state}
-        handleChange={this.handleChange}
-        setArtist={this.handleArtistInput}
-        setSong={this.handleSongInput}
-        handleSubmit={this.handleSubmit} />
+        text = {this.props.text}
+        handleChange = {this.handleChange}
+        setArtist = {this.handleArtistInput}
+        setSong = {this.handleSongInput}
+        handleSubmit = {this.handleSubmit} />
     );
   }
 
 }
 
-// const mapStateToProps = (state) => {
-//   return {
+const mapStateToProps = (state) => {
+  return {
+    text: state.lyrics.text,
+  }
+}
 
-//     handleArtistInput: (artist)
-
-//   }
-// }
-
-// const mapDispatchToProps = (dispatch) => {
-//   return {
-//   }
-// }
+const mapDispatchToProps = (dispatch) => {
+  return {
+  }
+}
 
 
-// const LyricsContainer = connect(mapStateToProps, mapDispatchToProps)(Lyrics)
-export default LyricsContainer;
+export default connect(mapStateToProps, mapDispatchToProps)(LyricsContainer)
+// export default LyricsContainer;
 

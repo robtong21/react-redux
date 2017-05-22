@@ -9,7 +9,6 @@ class PlayerContainer extends Component {
 
   constructor() {
     super();
-    this.state = store.getState().player;
     this.toggle = this.toggle.bind(this);
   }
 
@@ -17,55 +16,51 @@ class PlayerContainer extends Component {
 
     AUDIO.addEventListener('ended', this.next);
     AUDIO.addEventListener('timeupdate', () => {
-      store.dispatch(setProgress(AUDIO.currentTime / AUDIO.duration));
+      // store.dispatch(setProgress(AUDIO.currentTime / AUDIO.duration));
+      this.props.setProgress(AUDIO.currentTime / AUDIO.duration);
     });
 
-    this.unsubscribe = store.subscribe(() => {
-      this.setState(store.getState().player);
-    });
-  }
-
-  componentWillUnmount() {
-    this.unsubscribe();
-  }
-
-  next() {
-    store.dispatch(next());
-  }
-
-  prev() {
-    store.dispatch(previous());
+    // this.unsubscribe = store.subscribe(() => {
+    //   this.setState(store.getState().player);
+    // });
   }
 
   toggle() {
-    store.dispatch(
-      toggleSong(this.state.currentSong, this.state.currentSongList)
-    );
+    this.props.toggleSong(this.props.currentSong, this.props.currentSongList);
   }
 
   render() {
+    console.log(this.props);
+    // console.log(this.props);
     return <Player
-      {...this.state}
-      next={this.next}
-      prev={this.prev}
+      currentSong={this.props.currentSong}
+      currentSongList={this.props.currentSongList}
+      isPlaying={this.props.isPlaying}
+      progress={this.props.progress}
+      next={this.props.next}
+      prev={this.props.prev}
       toggle={this.toggle}
     />;
   }
 
 }
 
-// const mapStateToProps = (state) => {
-//   return {
-//     state.player,
-//   }
-// }
-// const mapDispatchToProps = (dispatch) => {
-//   return {
-//     next: () => dispatch(next()),
-//     prev: () => dispatch(prev()),
-//     toggle: (song, list) => dispatch(toggleSong(song, list)),
-//   }
-// }
+const mapStateToProps = (state) => {
+  console.log('state', state);
+  return {
+    currentSong: state.player.currentSong,
+    currentSongList: state.player.currentSongList,
+    isPlaying: state.player.isPlaying,
+    progress: state.player.progress,
+  }
+}
+const mapDispatchToProps = (dispatch) => {
+  return {
+    next: () => dispatch(next()),
+    prev: () => dispatch(previous()),
+    toggleSong: (song, list) => dispatch(toggleSong(song, list)),
+    setProgress: (num) => dispatch(setProgress(num)),
+  }
+}
 
-// const PlayerContainer = connect(mapStateToProps, mapDispatchToProps)(Player);
-export default PlayerContainer;
+export default connect(mapStateToProps, mapDispatchToProps)(PlayerContainer);
