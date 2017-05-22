@@ -30,8 +30,6 @@ class PlayerContainer extends Component {
   }
 
   render() {
-    console.log(this.props);
-    // console.log(this.props);
     return <Player
       currentSong={this.props.currentSong}
       currentSongList={this.props.currentSongList}
